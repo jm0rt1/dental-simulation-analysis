@@ -24,21 +24,69 @@ print(report_text[:1000])
 sections = re.split(r'\*\*\*', report_text)
 
 # Extract the INCOME AND EXPENSE STATEMENT section
-income_expense_section = sections[1]
+income_expense_section = sections[2]
 
-# Use regular expressions to extract data from the INCOME AND EXPENSE STATEMENT section
+
+def extract_value(pattern, text):
+    """Helper function to extract values using regex."""
+    match = re.search(pattern, text)
+    return match.group(1) if match else None
+
+
+split_income_expense_section = income_expense_section.split("\n")
+split_income_expense_section = [item.replace(
+    ",", "") for item in split_income_expense_section]
 income_expense_data = {
     "Income": {
-        "Production": re.search(r'Production\s*(\d+,\d+)', income_expense_section).group(1),
-        "Collections": re.search(r'Collections\s*(\d+,\d+)', income_expense_section).group(1),
+        "Production": float(split_income_expense_section[62]),
+        "positive Payments from A/R": float(split_income_expense_section[63]),
+        "negative Payments from A/R": float(split_income_expense_section[64]),
+        "Collections": float(split_income_expense_section[81]),
     },
     "Expenses": {
-        "Variable Costs": re.search(r'Variable\nCosts\s*(\d+,\d+)', income_expense_section).group(1),
-        "Fixed Costs": re.search(r'Fixed\nCosts\s*(\d+,\d+)', income_expense_section).group(1),
-        "Total Expenses": re.search(r'Total\nExpenses\s*(\d+,\d+)', income_expense_section).group(1),
+        "Variable Costs": {
+            "Dental Supplies": float(split_income_expense_section[65]),
+            "Dental Lab": float(split_income_expense_section[66]),
+            "Office Supplies": float(split_income_expense_section[67]),
+            "Total Variable Costs": float(split_income_expense_section[82]),
+        },
+        "Fixed Costs": {
+            "Space": {
+                "Rent": float(split_income_expense_section[68]),
+                "Utilities": float(split_income_expense_section[69]),
+                "Depreciation": float(split_income_expense_section[70]),
+                "Total Space": float(split_income_expense_section[83]),
+            },
+            "Staff": {
+                "Wages": float(split_income_expense_section[71]),
+                "Office Payroll Taxes": float(split_income_expense_section[72]),
+                "Hiring and Training Costs": float(split_income_expense_section[73]),
+                "Total Staff": float(split_income_expense_section[84]),
+            },
+            "Office": {
+                "Businuss Taxes and Insurance": float(split_income_expense_section[74]),
+                "Office Expenses": float(split_income_expense_section[75]),
+                "Total Office": float(split_income_expense_section[85]),
+            },
+            "Marketing": {
+                "Advertising": float(split_income_expense_section[76]),
+                "Total Marketing": float(split_income_expense_section[86]),
+            },
+            "Other": {
+                "Professional Services": float(split_income_expense_section[77]),
+                "Intereset Expense": float(split_income_expense_section[78]),
+                "Bank Charges": float(split_income_expense_section[79]),
+                "Miscellaneous": float(split_income_expense_section[80]),
+                "Total Other": float(split_income_expense_section[87]),
+            },
+        },
+        "Total Expenses": float(split_income_expense_section[88]),
     },
-    "Profit (Loss) This Qtr": re.search(r'PROFIT\n\(LOSS\)\nTHIS\nQTR:\s*([\+\-]?\d+,\d+)', income_expense_section).group(1)
+    "Profit (Loss) This Qtr": float(split_income_expense_section[89]),
 }
 
 income_expense_data
+
+income_expense_data
 pass
+print(split_income_expense_section)

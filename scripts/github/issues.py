@@ -1,3 +1,4 @@
+import time
 from github import Github
 import re
 from pathlib import Path
@@ -82,10 +83,12 @@ def create_milestones_and_issues(data):
 
             issue = repo.create_issue(title=issue_title, milestone=milestone, body=description,
                                       assignee=assignee, labels=labels)
-
             # If it's a parent issue, store its number
             if not parent_issue_title:
                 parent_issue_number = issue.number
+
+            # Sleep for a short period (e.g., 2 seconds) between issue creations to avoid rate limits
+            time.sleep(2)
 
 
 data = parse_md('docs/tasks/tasks.md')

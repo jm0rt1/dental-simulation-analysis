@@ -13,7 +13,7 @@ from scripts.github.access_token import ACCESS_TOKEN  # nopep8
 g = Github(ACCESS_TOKEN)
 
 # Name of your repository
-REPO_NAME = 'jm0rt1/cis-663-final-project'
+REPO_NAME = 'jm0rt1/dental-simulation-analysis'
 
 # Fetch the repo
 repo = g.get_repo(REPO_NAME)
@@ -33,6 +33,7 @@ def parse_md(file_path):
         milestone_name = lines[0].strip()
 
         issue_data = []
+        parent_issue = None
         for i in lines[1:]:
             if not i:
                 continue
@@ -47,13 +48,16 @@ def parse_md(file_path):
                 labels = [label.strip()
                           for label in i.split('|')[2].split(',')]
 
-            issue_data.append((issue_title, assignee, labels))
+            if i.startswith('-'):
+                parent_issue = issue_title
+                issue_data.append((issue_title, assignee, labels, None))
+            else:
+                issue_data.append(
+                    (issue_title, assignee, labels, parent_issue))
 
         parsed_data[milestone_name] = issue_data
 
     return parsed_data
-
-# Create milestones and issues
 
 
 def create_milestones_and_issues(data):
@@ -68,11 +72,20 @@ def create_milestones_and_issues(data):
         if milestone is None:
             milestone = repo.create_milestone(milestone_name)
 
+        parent_issue_number = None
         # Create issues
         for issue_tuple in issues:
-            issue_title, assignee, labels = issue_tuple
-            repo.create_issue(title=issue_title, milestone=milestone,
-                              assignee=assignee, labels=labels)
+            issue_title, assignee, labels, parent_issue_title = issue_tuple
+
+            # Create a description with a reference to the parent issue if it's a child task
+            description = f"Related to #{parent_issue_number}" if parent_issue_title else ""
+
+            issue = repo.create_issue(title=issue_title, milestone=milestone, body=description,
+                                      assignee=assignee, labels=labels)
+
+            # If it's a parent issue, store its number
+            if not parent_issue_title:
+                parent_issue_number = issue.number
 
 
 data = parse_md('docs/tasks/tasks.md')

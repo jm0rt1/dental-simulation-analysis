@@ -1,6 +1,6 @@
 import logging
 import logging.handlers
-from src.shared.settings import GlobalSettings
+from shared.settings.settings import GlobalSettings
 
 
 def initialize_logging():

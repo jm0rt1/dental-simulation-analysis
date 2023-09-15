@@ -34,7 +34,7 @@ class Parser():
         sections = re.split(r'\*\*\*', self.report_text)
 
         # Extract the INCOME AND EXPENSE STATEMENT section
-        income_expense_section = sections[2]
+        income_expense_section = sections[12]
 
         lines_list = income_expense_section.split("\n")
         lines_list = [item.replace(

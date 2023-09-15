@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 
 from dataclasses import dataclass
+from typing import Optional
 
 from src.app.analysis.parser.parser_interfaceable import ParserInterfaceable
 
@@ -13,6 +14,8 @@ class Space(ParserInterfaceable):
     depreciation: float
     total_space: float
 
+    repairs: Optional[float] = None
+
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
         space = cls(
@@ -27,10 +30,11 @@ class Space(ParserInterfaceable):
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
         space = cls(
-            rent=float(lines_list[68]),
-            utilities=float(lines_list[69]),
-            depreciation=float(lines_list[70]),
-            total_space=float(lines_list[83])
+            rent=float(lines_list[96].replace(",", "")),
+            utilities=float(lines_list[97].replace(",", "")),
+            depreciation=float(lines_list[99].replace(",", "")),
+            repairs=float(lines_list[98].replace(",", "")),
+            total_space=float(lines_list[113].replace(",", ""))
         )
 
         return space
@@ -42,6 +46,8 @@ class Staff(ParserInterfaceable):
     office_payroll_taxes: float
     hiring_and_training_costs: float
     total_staff: float
+    employee_benefits: Optional[float] = None
+    employee_pension: Optional[float] = None
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
@@ -56,39 +62,41 @@ class Staff(ParserInterfaceable):
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
         staff = cls(
-            wages=float(lines_list[71]),
-            office_payroll_taxes=float(lines_list[72]),
-            hiring_and_training_costs=float(lines_list[73]),
-            total_staff=float(lines_list[84])
+            wages=float(lines_list[91].replace(",", "")),
+            employee_benefits=float(lines_list[92].replace(",", "")),
+            employee_pension=float(lines_list[93].replace(",", "")),
+            office_payroll_taxes=float(lines_list[94].replace(",", "")),
+            hiring_and_training_costs=float(lines_list[95].replace(",", "")),
+            total_staff=float(lines_list[112].replace(",", ""))
         )
         return staff
 
 
 @dataclass
-class Office(ParserInterfaceable):
-    business_taxes_and_insurance: float
-    office_expenses: float
-    total_office: float
+class TaxesAndInsurance(ParserInterfaceable):
+    business_taxes: float
+    bussiness_insurance: float
+    total_taxes_and_insurance: float
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
-        office = cls(
-            business_taxes_and_insurance=float(
+        t_and_i = cls(
+            business_taxes=float(
                 lines_list[74]),
-            office_expenses=float(lines_list[75]),
-            total_office=float(lines_list[85])
+            bussiness_insurance=float(lines_list[75]),
+            total_taxes_and_insurance=float(lines_list[85])
         )
-        return office
+        return t_and_i
 
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
-        office = cls(
-            business_taxes_and_insurance=float(
-                lines_list[74]),
-            office_expenses=float(lines_list[75]),
-            total_office=float(lines_list[85])
+        t_and_i = cls(
+            business_taxes=float(
+                lines_list[100].replace(",", "")),
+            bussiness_insurance=float(lines_list[101].replace(",", "")),
+            total_taxes_and_insurance=float(lines_list[114].replace(",", ""))
         )
-        return office
+        return t_and_i
 
 
 @dataclass
@@ -108,8 +116,8 @@ class Marketing(ParserInterfaceable):
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
         marketing = cls(
-            advertising=float(lines_list[76]),
-            total_marketing=float(lines_list[86])
+            advertising=float(lines_list[102].replace(",", "")),
+            total_marketing=float(lines_list[115].replace(",", ""))
         )
 
         return marketing
@@ -117,18 +125,18 @@ class Marketing(ParserInterfaceable):
 
 @dataclass
 class Other(ParserInterfaceable):
-    professional_services: float
-    interest_expense: float
-    bank_charges: float
+    office_expenses: float
+    dues_and_continuing_ed: float
+    auto_expenses: float
     miscellaneous: float
     total_other: float
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
         other = cls(
-            professional_services=float(lines_list[77]),
-            interest_expense=float(lines_list[78]),
-            bank_charges=float(lines_list[79]),
+            office_expenses=float(lines_list[77]),
+            dues_and_continuing_ed=float(lines_list[78]),
+            auto_expenses=float(lines_list[79]),
             miscellaneous=float(lines_list[80]),
             total_other=float(lines_list[87])
         )
@@ -137,18 +145,18 @@ class Other(ParserInterfaceable):
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
         other = cls(
-            professional_services=float(lines_list[77]),
-            interest_expense=float(lines_list[78]),
-            bank_charges=float(lines_list[79]),
-            miscellaneous=float(lines_list[80]),
-            total_other=float(lines_list[87])
+            office_expenses=float(lines_list[107].replace(",", "")),
+            dues_and_continuing_ed=float(lines_list[108].replace(",", "")),
+            auto_expenses=float(lines_list[109].replace(",", "")),
+            miscellaneous=float(lines_list[110].replace(",", "")),
+            total_other=float(lines_list[118].replace(",", ""))
         )
         return other
 
 
 @dataclass
 class VariableCosts(ParserInterfaceable):
-    dental_supplies: float
+    clinical_supplies: float
     dental_lab: float
     office_supplies: float
     total_variable_costs: float
@@ -156,7 +164,7 @@ class VariableCosts(ParserInterfaceable):
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
         variable_costs = cls(
-            dental_supplies=float(lines_list[65]),
+            clinical_supplies=float(lines_list[65]),
             dental_lab=float(lines_list[66]),
             office_supplies=float(lines_list[67]),
             total_variable_costs=float(lines_list[82])
@@ -166,28 +174,73 @@ class VariableCosts(ParserInterfaceable):
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
         variable_costs = cls(
-            dental_supplies=float(lines_list[65]),
-            dental_lab=float(lines_list[66]),
-            office_supplies=float(lines_list[67]),
-            total_variable_costs=float(lines_list[82])
+            dental_lab=float(lines_list[32].replace(",", "")),
+            clinical_supplies=float(lines_list[33].replace(",", "")),
+            office_supplies=float(lines_list[34].replace(",", "")),
+            total_variable_costs=float(lines_list[111].replace(",", ""))
         )
         return variable_costs
+
+
+@dataclass
+class ProfessionalServices(ParserInterfaceable):
+    legal_accounting: float
+    market_research: float
+    total_professional_services: float
+
+    @classmethod
+    def from_lines_list_old(cls, lines_list: list[str]):
+        pass
+
+    @classmethod
+    def from_lines_list_new(cls, lines_list: list[str]):
+        professional_services = cls(
+            legal_accounting=float(lines_list[103].replace(",", "")),
+            market_research=float(lines_list[104].replace(",", "")),
+            total_professional_services=float(
+                lines_list[116].replace(",", ""))
+        )
+        return professional_services
+
+
+@dataclass
+class Banking(ParserInterfaceable):
+    interest_expense: float
+    bank_charges: float
+    total_banking: float
+
+    @classmethod
+    def from_lines_list_old(cls, lines_list: list[str]):
+        pass
+
+    @classmethod
+    def from_lines_list_new(cls, lines_list: list[str]):
+        banking = cls(
+            interest_expense=float(lines_list[105].replace(",", "")),
+            bank_charges=float(lines_list[106].replace(",", "")),
+            total_banking=float(lines_list[117].replace(",", ""))
+        )
+        return banking
 
 
 @dataclass
 class FixedCosts(ParserInterfaceable):
     space: Space
     staff: Staff
-    office: Office
+    taxes_and_insurance: TaxesAndInsurance
     marketing: Marketing
     other: Other
+
+    professional_services: Optional[ProfessionalServices] = None
+    banking: Optional[Banking] = None
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
         fixed_costs = cls(
             space=Space.from_lines_list_old(lines_list),
             staff=Staff.from_lines_list_old(lines_list),
-            office=Office.from_lines_list_old(lines_list),
+            taxes_and_insurance=TaxesAndInsurance.from_lines_list_old(
+                lines_list),
             marketing=Marketing.from_lines_list_old(lines_list),
             other=Other.from_lines_list_old(lines_list)
         )
@@ -198,8 +251,12 @@ class FixedCosts(ParserInterfaceable):
         fixed_costs = cls(
             space=Space.from_lines_list_new(lines_list),
             staff=Staff.from_lines_list_new(lines_list),
-            office=Office.from_lines_list_new(lines_list),
+            taxes_and_insurance=TaxesAndInsurance.from_lines_list_new(
+                lines_list),
             marketing=Marketing.from_lines_list_new(lines_list),
+            professional_services=ProfessionalServices.from_lines_list_new(
+                lines_list),
+            banking=Banking.from_lines_list_new(lines_list),
             other=Other.from_lines_list_new(lines_list)
         )
         return fixed_costs
@@ -209,8 +266,10 @@ class FixedCosts(ParserInterfaceable):
 class Income(ParserInterfaceable):
     production: float
     positive_payments_from_ar: float
-    negative_payments_from_ar: float
     collections: float
+    capitation_payments: Optional[float] = None
+    billed_to_accounts_receivable: Optional[float] = None
+    negative_payments_from_ar: Optional[float] = None
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
@@ -226,10 +285,12 @@ class Income(ParserInterfaceable):
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
         income = cls(
-            production=float(lines_list[62]),
-            positive_payments_from_ar=float(lines_list[63]),
-            negative_payments_from_ar=float(lines_list[64]),
-            collections=float(lines_list[81])
+            production=float(lines_list[4].replace(",", "")),
+            positive_payments_from_ar=float(lines_list[18].replace(",", "")),
+            capitation_payments=float(lines_list[19].replace(",", "")),
+            billed_to_accounts_receivable=float(
+                lines_list[20].replace(",", "")),
+            collections=float(lines_list[22].replace(",", ""))
         )
 
         return income

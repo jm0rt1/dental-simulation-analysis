@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import PyPDF2
 
-from src.app.analysis.idr.income_expense_data import Expenses, FixedCosts, Income, IncomeExpenseData, Marketing, Office, Other, Space, Staff, VariableCosts
+from src.app.analysis.idr.income_expense_data import Expenses, FixedCosts, Income, IncomeExpenseData, Marketing, Other, Space, Staff, VariableCosts
 from src.shared.settings.settings import GlobalSettings
 # Function to extract text from the PDF
 

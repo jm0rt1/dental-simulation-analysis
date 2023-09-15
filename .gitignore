@@ -1,5 +1,5 @@
 venv
 *.pyc
 */__pycache__/
-output/logs/
+output/
 scripts/github/access_token.py

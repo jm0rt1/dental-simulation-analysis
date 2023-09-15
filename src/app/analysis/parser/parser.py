@@ -21,8 +21,8 @@ class Parser():
 
     @property
     def report_text_file_path(self) -> Path:
-        file_path = self.PARSER_OUTPUT_DIR / \
-            f"/report_text_files/{self.pdf_path.stem}.txt"
+        file_path = Parser.PARSER_OUTPUT_DIR / \
+            f"report_text_files/{self.pdf_path.stem}.txt"
         file_path.parent.mkdir(parents=True, exist_ok=True)
         return file_path
 
@@ -73,5 +73,5 @@ class Parser():
 
         # Now we'll populate our dataclass instances:
 
-        self.data = IncomeExpenseData.from_lines_list_old(
+        self.data = IncomeExpenseData.from_lines_list_new(
             lines_list=lines_list)

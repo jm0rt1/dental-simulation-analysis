@@ -14,7 +14,7 @@ class Space(ParserInterfaceable):
     total_space: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         space = cls(
             rent=float(lines_list[68]),
             utilities=float(lines_list[69]),
@@ -33,7 +33,7 @@ class Staff(ParserInterfaceable):
     total_staff: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         staff = cls(
             wages=float(lines_list[71]),
             office_payroll_taxes=float(lines_list[72]),
@@ -50,7 +50,7 @@ class Office(ParserInterfaceable):
     total_office: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         office = cls(
             business_taxes_and_insurance=float(
                 lines_list[74]),
@@ -66,7 +66,7 @@ class Marketing(ParserInterfaceable):
     total_marketing: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         marketing = cls(
             advertising=float(lines_list[76]),
             total_marketing=float(lines_list[86])
@@ -84,7 +84,7 @@ class Other(ParserInterfaceable):
     total_other: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         other = cls(
             professional_services=float(lines_list[77]),
             interest_expense=float(lines_list[78]),
@@ -103,7 +103,7 @@ class VariableCosts(ParserInterfaceable):
     total_variable_costs: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         variable_costs = cls(
             dental_supplies=float(lines_list[65]),
             dental_lab=float(lines_list[66]),
@@ -122,13 +122,13 @@ class FixedCosts(ParserInterfaceable):
     other: Other
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         fixed_costs = cls(
-            space=Space.from_lines_list(lines_list),
-            staff=Staff.from_lines_list(lines_list),
-            office=Office.from_lines_list(lines_list),
-            marketing=Marketing.from_lines_list(lines_list),
-            other=Other.from_lines_list(lines_list)
+            space=Space.from_lines_list_old(lines_list),
+            staff=Staff.from_lines_list_old(lines_list),
+            office=Office.from_lines_list_old(lines_list),
+            marketing=Marketing.from_lines_list_old(lines_list),
+            other=Other.from_lines_list_old(lines_list)
         )
         return fixed_costs
 
@@ -141,7 +141,7 @@ class Income(ParserInterfaceable):
     collections: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         income = cls(
             production=float(lines_list[62]),
             positive_payments_from_ar=float(lines_list[63]),
@@ -158,9 +158,9 @@ class Expenses(ParserInterfaceable):
     fixed_costs: FixedCosts
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
-        expenses = cls(variable_costs=VariableCosts.from_lines_list(lines_list=lines_list),
-                       fixed_costs=FixedCosts.from_lines_list(lines_list=lines_list))
+    def from_lines_list_old(cls, lines_list: list[str]):
+        expenses = cls(variable_costs=VariableCosts.from_lines_list_old(lines_list=lines_list),
+                       fixed_costs=FixedCosts.from_lines_list_old(lines_list=lines_list))
         return expenses
 
 
@@ -172,10 +172,10 @@ class IncomeExpenseData(ParserInterfaceable):
     profit_loss_this_qtr: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         income_and_expenses = cls(
-            income=Income.from_lines_list(lines_list),
-            expenses=Expenses.from_lines_list(lines_list),
+            income=Income.from_lines_list_old(lines_list),
+            expenses=Expenses.from_lines_list_old(lines_list),
             total_expenses=float(lines_list[88]),
             profit_loss_this_qtr=float(lines_list[89])
         )

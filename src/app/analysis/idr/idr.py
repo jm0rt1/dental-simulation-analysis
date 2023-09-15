@@ -11,7 +11,7 @@ class IDR(ParserInterfaceable):
         self.data = None
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]) -> "IDR":
-        idr = cls(IncomeExpenseData.from_lines_list(lines_list=lines_list),
-                  CashManagement.from_lines_list(lines_list=lines_list))
+    def from_lines_list_old(cls, lines_list: list[str]) -> "IDR":
+        idr = cls(IncomeExpenseData.from_lines_list_old(lines_list=lines_list),
+                  CashManagement.from_lines_list_old(lines_list=lines_list))
         return idr

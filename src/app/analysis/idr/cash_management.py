@@ -14,7 +14,7 @@ class CashManagement(ParserInterfaceable):
     draw: float
 
     @classmethod
-    def from_lines_list(cls, lines_list: list[str]):
+    def from_lines_list_old(cls, lines_list: list[str]):
         cash_management = cls(
             ending_cash_last_quarter=float(lines_list[86]),
             ending_cash_this_quarter=float(lines_list[87]),

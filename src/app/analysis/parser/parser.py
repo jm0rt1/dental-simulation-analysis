@@ -17,6 +17,12 @@ class Parser():
 
         self.report_text: str = ""
 
+    @property
+    def report_text_file_path(self) -> Path:
+        file_path = Path(f"outputs/report_text_files/{self.pdf_path.stem}.txt")
+        file_path.mkdir(parents=True, exist_ok=True)
+        return file_path
+
     def extract_text_from_pdf(self, pdf_path: Path) -> str:
         with open(pdf_path, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
@@ -29,12 +35,16 @@ class Parser():
         # Extract text from the provided PDF
         self.report_text = self.extract_text_from_pdf(
             self.pdf_path)
+        # write report text to a file in outputs/report_text_files/{pdf_name}.txt
+
+        with open(self.report_text_file_path, "w") as file:
+            file.write(self.report_text)
 
         # Split the report into sections
-        sections = re.split(r'\*\*\*', self.report_text)
-
+        self.sections = re.split(r'\*\*\*', self.report_text)
+        # write
         # Extract the INCOME AND EXPENSE STATEMENT section
-        income_expense_section = sections[12]
+        income_expense_section = self.sections[12]
 
         lines_list = income_expense_section.split("\n")
         lines_list = [item.replace(
@@ -42,4 +52,4 @@ class Parser():
 
         # Now we'll populate our dataclass instances:
 
-        self.data = IncomeExpenseData.from_lines_list(lines_list=lines_list)
+       # self.data = IncomeExpenseData.from_lines_list(lines_list=lines_list)

@@ -18,6 +18,20 @@ class TestParser(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_parser_on_new_file(self):
+
         parser = Parser(REPORT_Q_1_3)
         parser.parse()
         actual = str(parser.data)
+
+    def test_parser_data_on_all_files(self):
+        datas = []
+        for file in Path("tests/test_files").iterdir():
+            if file.suffix == ".pdf":
+                parser = Parser(file)
+                parser.parse()
+                actual = parser.sections
+                datas.append(actual)
+
+        # check if all are the same length
+
+        self.assertTrue(all(len(data) == len(datas[0]) for data in datas))

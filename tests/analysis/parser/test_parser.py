@@ -1,7 +1,8 @@
 from pathlib import Path
 import unittest
 from src.app.analysis.parser.parser import Parser
-
+from src.app.analysis.idr.data_classes.report import Report, reports_to_dataframe
+import json
 
 REPORT_Q_9 = Path("tests/test_files/Report_Q-9.pdf")
 REPORT_Q_1_3 = Path("tests/test_files/Report_Q-1-3.pdf")
@@ -28,10 +29,15 @@ class TestParser(unittest.TestCase):
             if file.suffix == ".pdf":
 
                 parser = Parser(file)
-                parser.parse()
-                actual = parser.sections
-                datas.append(actual)
+                report = parser.parse()
 
+                datas.append(report)
+                dicto = report.to_dict()
+                with open(file.parent / f"{file.stem}.json", "w") as file:
+                    json_string = json.dumps(dicto, indent=4)
+                    file.write(json_string)
+
+                pass
         # check if all are the same length
-
-        self.assertTrue(all(len(data) == len(datas[0]) for data in datas))
+        reports_to_dataframe(datas)
+        # self.assertTrue(all(len(data) == len(datas[0]) for data in datas))

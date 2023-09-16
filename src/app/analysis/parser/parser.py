@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import PyPDF2
+from src.app.analysis.idr.data_classes.report import Report
 
 from src.app.analysis.idr.data_classes.income_expense_data import IncomeExpenseData
 from src.app.analysis.idr.data_classes.cash_management import CashManagementData
@@ -74,10 +75,5 @@ class Parser():
 
         # Now we'll populate our dataclass instances:
 
-        income_expense_data = IncomeExpenseData.from_lines_list_new(
-            lines_list=lines_list)
-
-        cash_management_data = CashManagementData.from_lines_list_new(
-            lines_list=lines_list)
-        
-        
+        report = Report.from_lines_list_new(lines_list=lines_list)
+        return report

@@ -1,0 +1,83 @@
+{
+    "income_expense_data": {
+        "income": {
+            "production": 100746.0,
+            "positive_payments_from_ar": 15863.0,
+            "collections": 94372.0,
+            "capitation_payments": 0.0,
+            "billed_to_accounts_receivable": 22237.0,
+            "negative_payments_from_ar": null
+        },
+        "expenses": {
+            "variable_costs": {
+                "clinical_supplies": 13749.0,
+                "dental_lab": 4516.0,
+                "office_supplies": 2824.0,
+                "total_variable_costs": 21089.0
+            },
+            "fixed_costs": {
+                "space": {
+                    "rent": 6600.0,
+                    "utilities": 2429.0,
+                    "depreciation": 4025.0,
+                    "total_space": 13636.0,
+                    "repairs": 582.0
+                },
+                "staff": {
+                    "wages": 37544.0,
+                    "office_payroll_taxes": 4881.0,
+                    "hiring_and_training_costs": 0.0,
+                    "total_staff": 45052.0,
+                    "employee_benefits": 750.0,
+                    "employee_pension": 1877.0
+                },
+                "taxes_and_insurance": {
+                    "business_taxes": 1100.0,
+                    "bussiness_insurance": 409.0,
+                    "total_taxes_and_insurance": 1509.0
+                },
+                "marketing": {
+                    "advertising": 5000.0,
+                    "total_marketing": 5000.0
+                },
+                "other": {
+                    "office_expenses": 133.0,
+                    "dues_and_continuing_ed": 1601.0,
+                    "auto_expenses": 1750.0,
+                    "miscellaneous": 243.0,
+                    "total_other": 3727.0
+                },
+                "professional_services": {
+                    "legal_accounting": 350.0,
+                    "market_research": 0.0,
+                    "total_professional_services": 350.0
+                },
+                "banking": {
+                    "interest_expense": 9873.0,
+                    "bank_charges": 0.0,
+                    "total_banking": 9873.0
+                }
+            }
+        },
+        "total_expenses": 100236.0,
+        "profit_loss_this_qtr": -5864.0
+    },
+    "cash_management_data": {
+        "ending_cash_last_quarter": 54316.0,
+        "ending_cash_this_quarter": 82634.0,
+        "overdrawn_checks_paid": 0.0,
+        "depreciation_expense": 4025.0,
+        "loan_addition": 50000.0,
+        "normal_loan_principal_payment": -10893.0,
+        "draw": -5000.0,
+        "profit_loss": null,
+        "collections": 94372.0,
+        "cds_redeemed": 1000.0,
+        "interest_earned": 50.0,
+        "estimated_tax_payment": -0.0,
+        "personal_retirement_plan_contribution": -0.0,
+        "total_expenses": -100236.0,
+        "cds_purchased": -5000.0,
+        "income_tax_paid_or_refund": 0.0
+    }
+}

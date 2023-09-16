@@ -333,10 +333,16 @@ class IncomeExpenseData(ParserInterfaceable):
 
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):
+        profit_loss_this_qtr_str = lines_list[127].replace(",", "")
+        if profit_loss_this_qtr_str.find("(") != -1:
+            profit_loss_this_qtr = float(
+                profit_loss_this_qtr_str.replace("(", "").replace(")", "")) * -1
+        else:
+            profit_loss_this_qtr = float(profit_loss_this_qtr_str)
         income_and_expenses = cls(
             income=Income.from_lines_list_new(lines_list),
             expenses=Expenses.from_lines_list_new(lines_list),
-            total_expenses=float(lines_list[88]),
-            profit_loss_this_qtr=float(lines_list[89])
+            total_expenses=float(lines_list[126].replace(",", "")),
+            profit_loss_this_qtr=profit_loss_this_qtr
         )
         return income_and_expenses

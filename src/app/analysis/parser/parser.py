@@ -2,7 +2,8 @@ from pathlib import Path
 import re
 import PyPDF2
 
-from src.app.analysis.idr.income_expense_data import Expenses, FixedCosts, Income, IncomeExpenseData, Marketing, Other, Space, Staff, VariableCosts
+from src.app.analysis.idr.income_expense_data import IncomeExpenseData
+from src.app.analysis.idr.cash_management import CashManagementData
 from src.shared.settings.settings import GlobalSettings
 # Function to extract text from the PDF
 
@@ -73,5 +74,8 @@ class Parser():
 
         # Now we'll populate our dataclass instances:
 
-        self.data = IncomeExpenseData.from_lines_list_new(
+        income_expense_data = IncomeExpenseData.from_lines_list_new(
+            lines_list=lines_list)
+
+        cash_management_data = CashManagementData.from_lines_list_new(
             lines_list=lines_list)

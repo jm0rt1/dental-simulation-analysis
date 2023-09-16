@@ -3,7 +3,7 @@ from src.app.analysis.parser.parser_interfaceable import ParserInterfaceable
 
 
 @dataclass
-class CashManagement(ParserInterfaceable):
+class CashManagementData(ParserInterfaceable):
     ending_cash_last_quarter: float
     ending_cash_this_quarter: float
     overdrawn_checks_paid: float

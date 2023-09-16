@@ -1,8 +1,8 @@
 
 # idr  =  "Internal Data Representation"
 
-from src.app.analysis.idr.cash_management import CashManagement
-from src.app.analysis.idr.income_expense_data import IncomeExpenseData
+from app.analysis.parser.cash_management import CashManagement
+from app.analysis.parser.income_expense_data import IncomeExpenseData
 from src.app.analysis.parser.parser_interfaceable import ParserInterfaceable
 
 

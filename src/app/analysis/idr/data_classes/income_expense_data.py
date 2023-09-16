@@ -211,7 +211,7 @@ class Banking(ParserInterfaceable):
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]):
-        pass
+        raise NotImplementedError()
 
     @classmethod
     def from_lines_list_new(cls, lines_list: list[str]):

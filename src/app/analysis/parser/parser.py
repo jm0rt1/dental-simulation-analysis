@@ -75,5 +75,6 @@ class Parser():
 
         # Now we'll populate our dataclass instances:
 
-        report = Report.from_lines_list_new(lines_list=lines_list)
+        report = Report.from_lines_list_new(
+            quarter=self.pdf_path.name, lines_list=lines_list)
         return report

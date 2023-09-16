@@ -1,5 +1,6 @@
 
 
+from typing import Optional
 import pandas as pd
 from dataclasses import dataclass
 from src.app.analysis.idr.data_classes.cash_management import CashManagementData
@@ -11,6 +12,7 @@ from src.app.analysis.parser.parser_interfaceable import ParserInterfaceable
 class Report(ParserInterfaceable):
     income_expense_data: IncomeExpenseData
     cash_management_data: CashManagementData
+    quarter: str = ""
 
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]) -> "Report":
@@ -19,9 +21,11 @@ class Report(ParserInterfaceable):
         return report
 
     @classmethod
-    def from_lines_list_new(cls, lines_list: list[str]) -> "Report":
-        report = cls(IncomeExpenseData.from_lines_list_new(lines_list=lines_list),
-                     CashManagementData.from_lines_list_new(lines_list=lines_list))
+    def from_lines_list_new(cls, lines_list: list[str], quarter: str = "") -> "Report":
+        report = cls(quarter=quarter,
+                     income_expense_data=IncomeExpenseData.from_lines_list_new(
+                         lines_list=lines_list),
+                     cash_management_data=CashManagementData.from_lines_list_new(lines_list=lines_list))
         return report
 
 

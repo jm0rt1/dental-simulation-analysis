@@ -21,7 +21,6 @@ class TestParser(unittest.TestCase):
 
         parser = Parser(REPORT_Q_1_3)
         parser.parse()
-        actual = str(parser.data)
 
     def test_parser_data_on_all_files(self):
         datas = []

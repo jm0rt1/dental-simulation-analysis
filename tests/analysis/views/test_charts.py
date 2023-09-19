@@ -11,6 +11,4 @@ class TestCharts(unittest.TestCase):
         result0 = Parser(Path("tests/test_files/Report_Q-1-3.pdf")).parse()
         result1 = Parser(Path("tests/test_files/Report_Q-2-3.pdf")).parse()
 
-        df = reports_to_dataframe([result0, result1])
-        print(df)
-        project_burndown_chart(df)
+        project_burndown_chart([result0, result1])

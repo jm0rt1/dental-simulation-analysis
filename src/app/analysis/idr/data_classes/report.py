@@ -17,7 +17,7 @@ class Report(ParserInterfaceable):
     @classmethod
     def from_lines_list_old(cls, lines_list: list[str]) -> "Report":
         report = cls(income_expense_data=lines_list[0],
-                     cach_management_data=lines_list[1:])
+                     cach_management_data=lines_list[1])
         return report
 
     @classmethod
@@ -37,7 +37,7 @@ def reports_to_dataframe(reports: list) -> pd.DataFrame:
     return df
 
 
-def flatten_dict(data, parent_key='', sep='_'):
+def flatten_dict(data: dict, parent_key: str = '', sep: str = '*') -> dict:
     items = {}
     for k, v in data.items():
         new_key = f"{parent_key}{sep}{k}" if parent_key else k
@@ -46,3 +46,5 @@ def flatten_dict(data, parent_key='', sep='_'):
         else:
             items[new_key] = v
     return items
+
+# rewrite the above function with type hints
